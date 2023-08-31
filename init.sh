@@ -40,6 +40,9 @@ get_full_name() {
 }
 
 add_user() {
+    local username="$1"
+    local full_name="$2"
+
     # Enter password
     echo "Password for the new account? (will not echo)" > /dev/tty
     stty -echo
@@ -90,6 +93,8 @@ install_graphical_interface () {
 }
 
 install_dotfiles() {
+    local username="$1"
+    
     # Install YADM
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
     # Pull my dotfiles
@@ -129,6 +134,6 @@ fi
 # Install dotfiles
 ask_yes_no "Do you want to install my dotfiles? (HIGHLY EXPERIMENTAL, NOT RECOMMENDED)" "no"
 if [ $? -eq 0 ]; then
-    install_dotfiles || error "Unable to install dotfiles"
+    install_dotfiles "$username" || error "Unable to install dotfiles"
 fi
 echo "All done! Remember to change your password as soon as possible"
