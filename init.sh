@@ -88,8 +88,13 @@ install_graphical_interface () {
     git clone https://github.com/Fiscoon/dwmblocks.git
     cd ./dwmblocks
     make install
+    # Compile and install st
+    cd /tmp/
+    git clone https://github.com/Fiscoon/st.git
+    cd ./st
+    make install
     # Install related graphical packages
-    pkg_add st-- picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- rofi-- 
+    pkg_add picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- rofi-- 
 }
 
 install_dotfiles() {
