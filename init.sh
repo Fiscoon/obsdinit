@@ -14,7 +14,7 @@ ask_yes_no() {
     case "$response" in
       [Yy]*|"") return 0 ;;
       [Nn]*) return 1 ;;
-      *) echo "Please answer y or n." ;; # ESTO TENGO Q VER LA INSTALACION DE OPENBSD PA VER COMO PONERLO
+      *) echo "Please answer y or n." ;;
     esac
   done
 }
@@ -109,6 +109,9 @@ install_dotfiles() {
     cp /home/$username/.local/tmp/login.conf /etc/
     # Add bins to /usr/local/bin
     ln -s /home/$username/.local/bin/* /usr/local/bin
+    # Install NeoVim plugin manager
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
 # ---
