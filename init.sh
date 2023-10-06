@@ -73,21 +73,17 @@ install_packages() {
 
 install_graphical_interface () {
     # Compile and install dwm
-    git clone https://github.com/Fiscoon/dwm.git /tmp/st
-    cd /tmp/dwm || exit
-    make install
+    git clone https://github.com/Fiscoon/dwm.git /tmp/dwm
+    make -C /tmp/dwm install
     # Compile and install dmenu
-    git clone https://github.com/Fiscoon/dmenu.git /tmp/st
-    cd /tmp/dmenu || exit
-    make install
+    git clone https://github.com/Fiscoon/dmenu.git /tmp/dmenu
+    make -C /tmp/dmenu install
     # Compile and install dwmblocks
-    git clone https://github.com/Fiscoon/dwmblocks.git /tmp/st
-    cd /tmp/dwmblocks || exit
-    make install
+    git clone https://github.com/Fiscoon/dwmblocks.git /tmp/dwmblocks
+    make -C /tmp/dwmblocks install
     # Compile and install st
     git clone https://github.com/Fiscoon/st.git /tmp/st
-    cd /tmp/st || exit
-    make install
+    make -C /tmp/st install
     # Install related graphical packages
     pkg_add picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- surf--
 }
