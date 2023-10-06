@@ -119,19 +119,19 @@ ask_yes_no "Do you want to enable APMD?" "yes"
 if [ $? -eq 0 ]; then
     enable_apmd || error "Unable to enable APMD"
 fi
-# Enable xenodm
-rcctl -f enable xenodm
-# Disable password prompt in xenodm
-echo "DisplayManager.*.autoLogin:	$username" >>/etc/X11/xenodm/xenodm-config
 # Install packages
 install_packages || error "Unable to install packages"
 # Install graphical interface
 ask_yes_no "Do you want to install the graphical interface?" "yes"
 if [ $? -eq 0 ]; then
+    # Enable xenodm
+    rcctl -f enable xenodm
+    # Disable password prompt in xenodm
+    echo "DisplayManager.*.autoLogin:	$username" >>/etc/X11/xenodm/xenodm-config
     install_graphical_interface || error "Unable to install the graphical interface"
 fi
 # Install dotfiles
-ask_yes_no "Do you want to install my dotfiles? (HIGHLY EXPERIMENTAL, NOT RECOMMENDED)" "no"
+ask_yes_no "Do you want to install Fiscoon's dotfiles? (EXPERIMENTAL)" "yes"
 if [ $? -eq 0 ]; then
     install_dotfiles "$username" || error "Unable to install dotfiles"
 fi
