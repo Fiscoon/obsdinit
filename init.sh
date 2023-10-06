@@ -101,7 +101,7 @@ install_dotfiles() {
     # Add bins to /usr/local/bin
     ln -s /home/"$username"/.local/bin/* /usr/local/bin
     # Install NeoVim plugin manager
-    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    su -l "$username" -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
