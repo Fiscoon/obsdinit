@@ -9,8 +9,7 @@ error() {
 ask_yes_no() {
   while true; do
     printf "%s [%s]: " "$1" "$2" > /dev/tty
-    read response
-
+    read -r response
     case "$response" in
       [Yy]*|"") return 0 ;;
       [Nn]*) return 1 ;;
@@ -22,21 +21,21 @@ ask_yes_no() {
 get_username() {
     # Enter username
     echo "Enter your desired username (lower-case loginname)" > /dev/tty
-    while read username; do
+    while read -r username; do
         if [ "$username" = "$prev_username" ]; then
             break
         fi
         prev_username=$username
         echo "Enter your username again (username must match)" > /dev/tty
     done
-    echo $username
+    echo "$username"
 }
 
 get_full_name() {
     # Enter full name
     echo "Enter your full name (it can be changed later)" > /dev/tty
-    read full_name
-    echo $full_name
+    read -r full_name
+    echo "$full_name"
 }
 
 add_user() {
@@ -46,7 +45,7 @@ add_user() {
     # Enter password
     echo "Password for the new account? (will not echo)" > /dev/tty
     stty -echo
-    while read pass; do
+    while read -r pass; do
         if [ "$pass" = "$prev_pass" ]; then
             break
         fi
@@ -56,7 +55,7 @@ add_user() {
     stty echo
 
     #Create the new user
-    adduser -noconfig -class "staff" -shell "ksh" -batch $1 operator,staff,wheel "$2" "$(encrypt "$pass")"
+    adduser -noconfig -class "staff" -shell "ksh" -batch "$1" operator,staff,wheel "$2" "$(encrypt "$pass")"
 }
 
 enable_apmd() {
@@ -74,27 +73,23 @@ install_packages() {
 
 install_graphical_interface () {
     # Compile and install dwm
-    cd /tmp/
-    git clone https://github.com/Fiscoon/dwm.git
-    cd ./dwm
+    git clone https://github.com/Fiscoon/dwm.git /tmp/st
+    cd /tmp/dwm || exit
     make install
     # Compile and install dmenu
-    cd /tmp/
-    git clone https://github.com/Fiscoon/dmenu.git
-    cd ./dmenu
+    git clone https://github.com/Fiscoon/dmenu.git /tmp/st
+    cd /tmp/dmenu || exit
     make install
     # Compile and install dwmblocks
-    cd /tmp/
-    git clone https://github.com/Fiscoon/dwmblocks.git
-    cd ./dwmblocks
+    git clone https://github.com/Fiscoon/dwmblocks.git /tmp/st
+    cd /tmp/dwmblocks || exit
     make install
     # Compile and install st
-    cd /tmp/
-    git clone https://github.com/Fiscoon/st.git
-    cd ./st
+    git clone https://github.com/Fiscoon/st.git /tmp/st
+    cd /tmp/st || exit
     make install
     # Install related graphical packages
-    pkg_add picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- rofi-- 
+    pkg_add picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- surf--
 }
 
 install_dotfiles() {
@@ -103,12 +98,12 @@ install_dotfiles() {
     # Install YADM
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
     # Pull my dotfiles
-    rm /home/$username/.profile
-    su -l $username -c 'yadm clone https://github.com/Fiscoon/dotfiles.git'
+    rm /home/"$username"/.profile
+    su -l "$username" -c 'yadm clone https://github.com/Fiscoon/dotfiles.git'
     # Replace login.conf
-    cp /home/$username/.local/tmp/login.conf /etc/
+    cp /home/"$username"/.local/tmp/login.conf /etc/
     # Add bins to /usr/local/bin
-    ln -s /home/$username/.local/bin/* /usr/local/bin
+    ln -s /home/"$username"/.local/bin/* /usr/local/bin
     # Install NeoVim plugin manager
     sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
