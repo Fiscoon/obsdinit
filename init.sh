@@ -135,4 +135,4 @@ ask_yes_no "Do you want to install my dotfiles? (HIGHLY EXPERIMENTAL, NOT RECOMM
 if [ $? -eq 0 ]; then
     install_dotfiles "$username" || error "Unable to install dotfiles"
 fi
-echo "All done! Remember to change your password as soon as possible"
+echo "All done!"
