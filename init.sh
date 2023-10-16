@@ -67,7 +67,7 @@ enable_apmd() {
 install_packages() {
     # Install software
     echo "Installing software..." > /dev/tty
-    pkg_add wget-- curl-- shellcheck-- freetype-- fff-- mpv-- scrot-- weechat-- unzip-- neovim-- gmake-- git--
+    pkg_add wget-- curl-- shellcheck-- freetype-- fff-- mpv-- scrot-- weechat-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl--
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 }
 
@@ -126,8 +126,11 @@ ask_yes_no "Do you want to install the graphical interface?" "yes"
 if [ $? -eq 0 ]; then
     # Enable xenodm
     rcctl -f enable xenodm
-    # Disable password prompt in xenodm
-    echo "DisplayManager.*.autoLogin:	$username" >>/etc/X11/xenodm/xenodm-config
+    ask_yes_no "Do you want to enable autologin for the graphical interface? (Recommended if you encrypted your disk)" "yes"
+    if [ $? -eq 0 ]; then
+        # Disable password prompt in xenodm
+        echo "DisplayManager.*.autoLogin:	$username" >>/etc/X11/xenodm/xenodm-config
+    fi
     install_graphical_interface || error "Unable to install the graphical interface"
 fi
 # Install dotfiles
@@ -136,3 +139,4 @@ if [ $? -eq 0 ]; then
     install_dotfiles "$username" || error "Unable to install dotfiles"
 fi
 echo "All done!"
+
