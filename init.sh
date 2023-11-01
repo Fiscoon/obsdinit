@@ -67,7 +67,7 @@ enable_apmd() {
 install_packages() {
     # Install software
     echo "Installing software..." > /dev/tty
-    pkg_add wget-- curl-- shellcheck-- freetype-- fff-- mpv-- scrot-- weechat-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl--
+    pkg_add wget-- curl-- shellcheck-- freetype-- fff-- weechat-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl--
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 }
 
@@ -85,7 +85,7 @@ install_graphical_interface () {
     git clone https://github.com/Fiscoon/st.git /tmp/st
     make -C /tmp/st install
     # Install related graphical packages
-    pkg_add picom-- xwallpaper-- hermit-font-- symbola-ttf-- xclip-- surf--
+    pkg_add picom-- xwallpaper-- nsxiv-- hermit-font-- symbola-ttf-- mpv-- scrot-- xdotool-- xclip-- surf--
 }
 
 install_dotfiles() {
