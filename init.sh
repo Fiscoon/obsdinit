@@ -67,7 +67,7 @@ enable_apmd() {
 install_packages() {
     # Install software
     echo "Installing software..." > /dev/tty
-    pkg_add wget-- curl-- shellcheck-- fff-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl-- jq-- nextcloudclient-- ripgrep-- wireguard-tools--
+    pkg_add wget-- curl-- shellcheck-- fff-- unzip-- neovim-- gmake-- git-- neomutt--sasl cyrus-sasl-- jq-- nextcloudclient-- ripgrep-- wireguard-tools--
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 }
 
