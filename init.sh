@@ -67,11 +67,16 @@ enable_apmd() {
 install_packages() {
     # Install software
     echo "Installing software..." > /dev/tty
-    pkg_add wget-- curl-- shellcheck-- freetype-- fff-- weechat-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl--
+    pkg_add wget-- curl-- shellcheck-- fff-- unzip-- neovim-- gmake-- git-- neomutt-- cyrus-sasl-- jq-- nextcloudclient-- ripgrep-- wireguard-tools--
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 }
 
 install_graphical_interface () {
+    # Download freetype2 library
+    wget 'https://download.savannah.gnu.org/releases/freetype/freetype-2.13.2.tar.gz' -O '/tmp/freetype2.tar.gz'
+    tar xzf '/tmp/freetype2.tar.gz'
+    mkdir -p '/usr/X11R6/include/freetype2/'
+    cp -r '/tmp/freetype-2.13.2/include/.' '/usr/X11R6/include/freetype2/'
     # Compile and install dwm
     git clone https://github.com/Fiscoon/dwm.git /tmp/dwm
     make -C /tmp/dwm install
@@ -85,7 +90,7 @@ install_graphical_interface () {
     git clone https://github.com/Fiscoon/st.git /tmp/st
     make -C /tmp/st install
     # Install related graphical packages
-    pkg_add picom-- xwallpaper-- nsxiv-- hermit-font-- symbola-ttf-- mpv-- scrot-- xdotool-- xclip-- surf--
+    pkg_add picom-- xwallpaper-- nsxiv-- hermit-font-- symbola-ttf-- mpv-- scrot-- xdotool-- xclip-- surf-- w3m-- iridium--
 }
 
 install_dotfiles() {
