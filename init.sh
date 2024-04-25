@@ -67,7 +67,7 @@ enable_apmd() {
 install_packages() {
     # Install software
     echo "Installing software..." > /dev/tty
-    pkg_add wget-- curl-- shellcheck-- fff-- unzip-- neovim-- gmake-- git-- neomutt--sasl cyrus-sasl-- jq-- nextcloudclient-- ripgrep-- wireguard-tools--
+    pkg_add wget-- curl-- shellcheck-- fff-- unzip-- neovim-- gmake-- git-- neomutt--sasl cyrus-sasl-- jq-- nextcloudclient-- ripgrep-- wireguard-tools-- clang-tools-extra lsblk
     curl -fLo /usr/local/bin/yadm https://github.com/TheLocehiliosan/yadm/raw/master/yadm && chmod a+x /usr/local/bin/yadm
 }
 
@@ -90,7 +90,7 @@ install_graphical_interface () {
     git clone https://github.com/Fiscoon/st.git /tmp/st
     make -C /tmp/st install
     # Install related graphical packages
-    pkg_add picom-- xwallpaper-- nsxiv-- hermit-font-- symbola-ttf-- mpv-- scrot-- xdotool-- xclip-- surf-- w3m-- iridium--
+    pkg_add picom-- xwallpaper-- nsxiv-- hermit-font-- symbola-ttf-- mpv-- scrot-- xdotool-- xclip-- surf-- w3m-- iridium-- ja-sazanami-ttf-- noto-cjk
 }
 
 install_dotfiles() {
@@ -104,7 +104,7 @@ install_dotfiles() {
     # Replace login.conf
     cp /home/"$username"/.local/tmp/login.conf /etc/
     # Add bins to /usr/local/bin
-    ln -s /home/"$username"/.local/bin/* /usr/local/bin
+    # ln -s /home/"$username"/.local/bin/* /usr/local/bin
     # Install NeoVim plugin manager
     su -l "$username" -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
